@@ -102,4 +102,40 @@ public class Sort {
 			}
 		}
 	}
+
+	private void mergeSort(int[] array, int l, int h) {
+		if(l < h) {
+			int mid = (l + h) / 2;
+			mergeSort(array, l, mid);
+			mergeSort(arr, mid+1, h);
+			merge(arr, l1, h1, l2, h2);
+		}
+	}
+
+	private void merge(int[] array, int l, int m, int h) {
+		int[] temp1 = new int[m - l + 1];
+		int[] temp2 = new int[h - m];
+		for(int i = l; i <= m; i++) {
+			temp1[i - l] = array[i];
+		}
+		for(int i = m + 1; i <= h; i++) {
+			temp2[i - m - 1] = array[i];
+		}
+		int cur = l;
+		int idx1 = 0;
+		int idx2 = 0;
+		while(idx1 < temp1.length && idx2 < temp2.length) {
+			if(temp1[idx1] <= temp2[idx2]) {
+				array[cur++] = temp1[idx1++];
+			} else {
+				array[cur++] = temp2[idx2++];
+			}
+		}
+		while(idx1 < temp1.length) {
+			array[cur++] = temp1[idx1++];
+		}
+		while(idx2 < temp2.length) {
+			array[cur++] = temp2[idx2++];
+		}
+	}
 }
