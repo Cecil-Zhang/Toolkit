@@ -30,7 +30,7 @@ public class Sort {
 		return i;
 	}
 	
-	private void quickSort(int[] array, int low, int high) {
+	public void quickSort(int[] array, int low, int high) {
 		if(low < high) {
 			int pi = partition(array, low, high);
 			quickSort(array, low, pi - 1);
@@ -38,7 +38,7 @@ public class Sort {
 		}
 	}
 	
-	private void shellSort(int[] array) {
+	public void shellSort(int[] array) {
 		int n = array.length;
 		for(int gap = n / 2; gap > 0; gap /= 2) {
 			for(int i = gap; i < n; i++) {
@@ -56,7 +56,7 @@ public class Sort {
 		}
 	}
 	
-	private void insertionSort(int[] array) {
+	public void insertionSort(int[] array) {
 		for(int i = 1; i < array.length; i++) {
 			int cur = array[i];
 			int j = i - 1;
@@ -71,7 +71,7 @@ public class Sort {
 		}
 	}
 	
-	private void selectionSort(int[] array) {
+	public void selectionSort(int[] array) {
 		for(int i = 0; i < array.length - 1; i++) {
 			int idx = i;
 			for(int j = i; j < array.length; j++) {
@@ -85,7 +85,7 @@ public class Sort {
 		}
 	}
 
-	private void bubbleSort(int[] array) {
+	public void bubbleSort(int[] array) {
 		for(int i = 0; i < array.length - 1; i++) {
 			boolean swap = false;
 			for(int j = 0; j < array.length - 1 - i; j++) {
@@ -103,7 +103,7 @@ public class Sort {
 		}
 	}
 
-	private void mergeSort(int[] array, int l, int h) {
+	public void mergeSort(int[] array, int l, int h) {
 		if(l < h) {
 			int mid = (l + h) / 2;
 			mergeSort(array, l, mid);
@@ -136,6 +136,37 @@ public class Sort {
 		}
 		while(idx2 < temp2.length) {
 			array[cur++] = temp2[idx2++];
+		}
+	}
+
+	public void heapSort(int[] array) {
+		for(int n = array.length; n > 0; n--) {
+			for(int i = (n -1) / 2; i >= 0; i--) {
+				heapify(array, n, i);
+			}
+			swap(array, n - 1, 0);
+		}
+	}
+	
+	/** heapify the array to fit the constraint that root greater than children
+	 * @param array 
+	 * @param n size of heap
+	 * @param idx the index to heapify
+	 */
+	private void heapify(int[] array, int n, int idx) {
+		int left = 2 * idx + 1;
+		int right = left + 1;
+		int largest = idx;
+		if(left < n && array[left] > array[idx]) {
+			largest = left;
+		}
+		if (right < n && array[right] > array[largest]) {
+			largest = right;
+		}
+		
+		if(largest != idx) {
+			swap(array, largest, idx);
+			heapify(array, n, largest);
 		}
 	}
 }
